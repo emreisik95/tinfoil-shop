@@ -29,18 +29,13 @@ jobs:
     - name: Update shop
       run: python auto_update_shop.py
 
-    - name: Commit changes
+    - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add emre_ultimate_shop.json
         git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update shop - $(date '+%Y-%m-%d %H:%M')"
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
+        git push
 
     - name: Create summary
       run: |
